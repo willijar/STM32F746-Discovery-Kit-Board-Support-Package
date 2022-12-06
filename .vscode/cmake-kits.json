@@ -1,0 +1,6 @@
+[
+    {
+        "name": "GCC-ARM-STM32",
+        "toolchainFile": "STM32-toolchain.cmake"
+    }
+]
