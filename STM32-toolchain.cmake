@@ -4,16 +4,13 @@
 set(CMAKE_SYSTEM_NAME Generic)
 set(CMAKE_SYSTEM_PROCESSOR arm)
 set(CMAKE_SYSTEM_VERSION Cortex-M7-STMF32F746G)
-
-set(CMAKE_C_COMPILER arm-none-eabi-gcc)
-set(CMAKE_CXX_COMPILER arm-none-eabi-g++)
-set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
-set(CMAKE_C_OUTPUT_EXTENSION ".o")
+find_program(CMAKE_C_COMPILER arm-none-eabi-gcc)
+find_program(CMAKE_CXX_COMPILER arm-none-eabi-g++)
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY) # cross compiling toolhain
 
 set(ARM_OPTIONS
   -mcpu=cortex-m7
   -std=gnu11
-  -g3 
   -mfpu=fpv5-sp-d16 
   -mfloat-abi=hard 
   -mthumb
@@ -21,8 +18,8 @@ set(ARM_OPTIONS
 
 add_compile_options(
     ${ARM_OPTIONS}
-    -Os
     -ffunction-sections
+    -fdata-sections
     -Wall
     -fstack-usage
     -MMD
@@ -35,8 +32,6 @@ add_link_options(
     LINKER: -static
     --specs=nano.specs
     )
-
-
 
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
