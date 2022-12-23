@@ -1,12 +1,7 @@
 cmake_minimum_required(VERSION 3.16.0)
 project(STM32F746G-Discovery VERSION 0.1.0 LANGUAGES C ASM)
 
-#####################################################
-# CMAKE extensions
-#####################################################
-#include(CTest)
-#include(FetchContent)
-#enable_testing()
+include_directories(${CMAKE_SOURCE_DIR}/include) # for HAL configuration files
 
 #####################################################
 # SOURCE
@@ -72,11 +67,11 @@ target_include_directories(STM32F746G-Discovery
     PUBLIC Drivers/BSP/Components/ft5336
     PUBLIC Drivers/BSP/Components
     PUBLIC Drivers/STM32F7xx_HAL_Driver/Inc
-    PUBLIC Inc
 )
   
 add_compile_definitions(
     STM32F746xx
     USE_HAL_DRIVER
 )
+
 add_subdirectory(Example)

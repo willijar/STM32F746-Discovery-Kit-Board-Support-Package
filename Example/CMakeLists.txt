@@ -11,23 +11,23 @@ set(TARGET_BASENAME ${PROJECT_NAME})
 # CONFIGURE EXECUTABLE
 #####################################################
 add_executable(${TARGET_BASENAME}
-    User/audio_loopback.c
-    User/audio_play.c
-    User/audio_rec.c
-    User/camera.c
-    User/eeprom.c
-    User/lcd.c
-    User/log.c
-    User/main.c
-    User/qspi.c
-    User/sd.c
-    User/sdram.c
-    User/sdram_dma.c
-    User/stm32f7xx_it.c
-    User/touchscreen.c
-    ../Utilities/lcd_log.c
-    SW4STM32/syscalls.c # dummy syscalls
-    SW4STM32/startup_stm32f746xx.s # ASM startup
+    Src/audio_loopback.c
+    Src/audio_play.c
+    Src/audio_rec.c
+    Src/camera.c
+    Src/eeprom.c
+    Src/lcd.c
+    Src/log.c
+    Src/main.c
+    Src/qspi.c
+    Src/sd.c
+    Src/sdram.c
+    Src/sdram_dma.c
+    Src/stm32f7xx_it.c
+    Src/touchscreen.c
+    ../Utilities/Log/lcd_log.c
+    ${CMAKE_SOURCE_DIR}/SW4STM32/syscalls.c # dummy syscalls
+    ${CMAKE_SOURCE_DIR}/SW4STM32/startup_stm32f746xx.s # ASM startup
 )
 
 #####################################################
@@ -38,7 +38,7 @@ target_include_directories(${TARGET_BASENAME} BEFORE
   PRIVATE ../Utilities/Fonts
   PRIVATE ../Utilities/CPU
   PRIVATE ../Utilities/Log
-  PRIVATE ../Inc
+  PRIVATE Inc
   )
 
 #####################################################
