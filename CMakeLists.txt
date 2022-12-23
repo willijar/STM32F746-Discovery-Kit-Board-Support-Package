@@ -1,7 +1,15 @@
 cmake_minimum_required(VERSION 3.16.0)
 project(STM32F746G-Discovery VERSION 0.1.0 LANGUAGES C ASM)
 
-include_directories(${CMAKE_SOURCE_DIR}/include) # for HAL configuration files
+#####################################################
+# CONFIGURATION
+#####################################################
+OPTION(USE_REPLACEMENT_SAI "Use Replacement SAI provided by ARM DSP Education Kit" OFF)
+OPTION(USE_BSP_EXAMPLE "If true will build BSP example" ON)
+set(CMSISCORE ${CMAKE_CURRENT_SOURCE_DIR}/CMSIS CACHE PATH 
+    "Path to CMSIS Core for CMSIS-DSP library")
+set(HALCONFIG ${CMAKE_SOURCE_DIR}/include CACHE PATH 
+    "Path to HAL configuration header files")
 
 #####################################################
 # SOURCE
@@ -10,9 +18,6 @@ include_directories(${CMAKE_SOURCE_DIR}/include) # for HAL configuration files
 add_library(STM32F746G-Discovery STATIC
     Drivers/BSP/Components/ft5336.c
     Drivers/BSP/Components/ov9655.c
-    Drivers/BSP/Components/wm8994.c
-    Drivers/BSP/STM32746G-Discovery/stm32746g_discovery.c
-    Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_audio.c
     Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_camera.c
     Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_eeprom.c
     Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_lcd.c
@@ -72,7 +77,6 @@ add_library(STM32F746G-Discovery STATIC
     Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rtc_ex.c
     Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rtc.c
     Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sai_ex.c
-    Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sai.c
     Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sd.c
     Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sdram.c
     Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_smartcard_ex.c
@@ -96,11 +100,21 @@ add_library(STM32F746G-Discovery STATIC
     Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_sdmmc.c
 )
 
+if (NOT USE_REPLACEMENT_SAI)
+    target_sources(STM32F746G-Discovery PRIVATE    
+        Drivers/BSP/Components/wm8994.c
+        Drivers/BSP/STM32746G-Discovery/stm32746g_discovery.c
+        Drivers/BSP/STM32746G-Discovery/stm32746g_discovery_audio.c
+        Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sai.c
+    )
+endif()
+
 #####################################################
 # INCLUDES
 #####################################################
 
 target_include_directories(STM32F746G-Discovery
+    PUBLIC ${HALCONFIG}
     PUBLIC Drivers/CMSIS/Include
     PUBLIC Drivers/CMSIS/Device/ST/STM32F7xx/Include
     PUBLIC Drivers/BSP/STM32746G-Discovery
@@ -119,4 +133,6 @@ add_compile_definitions(
     USE_HAL_DRIVER
 )
 
-add_subdirectory(Example)
+if (USE_BSP_EXAMPLE)
+    add_subdirectory(Example)
+endif()
