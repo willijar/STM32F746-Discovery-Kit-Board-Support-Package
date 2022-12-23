@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Cortex st-util Debug",
+        "cwd": "${workspaceRoot}",
+        "executable": "${command:cmake.launchTargetPath}",
+        "request": "launch",
+        "type": "cortex-debug",
+        "servertype": "stutil",
+        "interface": "swd",
+        "device": "STM32F746NG",
+        "svdFile": "${workspaceRoot}/system/STM32F7x6.svd",
+        "runToEntryPoint": "main",
+        "swoConfig":{
+          "enabled": true,
+          "cpuFrequency": 200000000,
+          "swoFrequency": 4000000,
+          "source": "probe",
+          "decoders": [
+            {
+              "label": "ITM port 0 output",
+              "type": "console",
+              "port": 0,
+              "showOnStartup": true,
+              "encoding": "ascii"
+            }
+          ]
+        }
+      }
+    ]
+  }
