@@ -5,7 +5,7 @@ project(STM32F746G-Discovery VERSION 0.1.0 LANGUAGES C ASM)
 # CONFIGURATION
 #####################################################
 OPTION(USE_REPLACEMENT_SAI "Use Replacement SAI provided by ARM DSP Education Kit" OFF)
-OPTION(USE_BSP_EXAMPLE "If true will build BSP example" ON)
+OPTION(USE_BSP_EXAMPLE "If true will build BSP example" OFF)
 set(CMSISCORE ${CMAKE_CURRENT_SOURCE_DIR}/CMSIS CACHE PATH 
     "Path to CMSIS Core for CMSIS-DSP library")
 set(HALCONFIG ${CMAKE_SOURCE_DIR}/include CACHE PATH 
