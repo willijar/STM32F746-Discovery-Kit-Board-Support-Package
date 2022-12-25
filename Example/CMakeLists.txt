@@ -26,8 +26,8 @@ add_executable(${TARGET_BASENAME}
     Src/stm32f7xx_it.c
     Src/touchscreen.c
     ../Utilities/Log/lcd_log.c
-    ${CMAKE_SOURCE_DIR}/SW4STM32/syscalls.c # dummy syscalls
-    ${CMAKE_SOURCE_DIR}/SW4STM32/startup_stm32f746xx.s # ASM startup
+    ../SW4STM32/syscalls.c # dummy syscalls
+    ../SW4STM32/startup_stm32f746xx.s # ASM startup
 )
 
 #####################################################
@@ -57,7 +57,7 @@ add_compile_definitions(
 target_link_libraries(${TARGET_BASENAME} STM32F746G-Discovery)
 
 SET(LINKER_SCRIPTS 
-    ${CMAKE_SOURCE_DIR}/SW4STM32/STM32746G_DISCOVERY/STM32F746NGHx_FLASH.ld
+    ../SW4STM32/STM32746G_DISCOVERY/STM32F746NGHx_FLASH.ld
 )
 
 target_link_options(${TARGET_BASENAME} PRIVATE
