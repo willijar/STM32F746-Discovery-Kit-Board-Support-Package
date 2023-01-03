@@ -14,10 +14,9 @@ set(LINKER_SCRIPT
    ${CMAKE_CURRENT_SOURCE_DIR}/SW4STM32/STM32746G_DISCOVERY/STM32F746NGHx_FLASH.ld
     CACHE PATH "Path to Linker Script for STM32F746NGHx board")
 
-set(SYSTEM_SOURCE_FILES 
-    SW4STM32/startup_stm32f746xx.s 
-    SW4STM32/syscalls.c
-    Drivers/CMSIS/system_stm32f7xx.c)
+set(SYSTEM_SOURCE_FILES  
+    ${CMAKE_CURRENT_SOURCE_DIR}/SW4STM32/startup_stm32f746xx.s;${CMAKE_CURRENT_SOURCE_DIR}/SW4STM32/syscalls.c;${CMAKE_CURRENT_SOURCE_DIR}/Drivers/CMSIS/system_stm32f7xx.c
+    CACHE PATH "List of system files for STM32F746NGHx board")
 
 #####################################################
 # SOURCE
