@@ -10,6 +10,14 @@ set(CMSISCORE ${CMAKE_CURRENT_SOURCE_DIR}/CMSIS CACHE PATH
     "Path to CMSIS Core for CMSIS-DSP library")
 set(HALCONFIG ${CMAKE_SOURCE_DIR}/include CACHE PATH 
     "Path to HAL configuration header files")
+find_file(LINKER_SCRIPT 
+    STM32F746NGHx_FLASH.ld 
+    DOC "Path to Linker Script for STM32F746NGHx board")
+
+set(SYSTEM_SOURCE_FILES 
+    SW4STM32/startup_stm32f746xx.s 
+    SW4STM32/syscalls.c
+    Drivers/CMSIS/system_stm32f7xx.c)
 
 #####################################################
 # SOURCE
